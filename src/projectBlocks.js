@@ -5,6 +5,8 @@ import imgArtikel from './assets/artikel unila care.webp';
 import imgTravelInsta from './assets/Grace Travel & Rent Car (4).webp';
 import imgtravel from './assets/landscape banner.webp';
 import imgPathTrick1 from './assets/imgPathTrick 1.webp';
+import imgPathTrick2 from './assets/pathrick2.png';
+import videoPathTrick from './assets/PathTrick - Discover Your Path, Build Your Future.mp4';
 
 export const projectBlocksMap = {
   1: [
@@ -31,7 +33,8 @@ export const projectBlocksMap = {
     { id: 'b3', type: 'text', heading: 'The Solution', content: 'PathTrick is a Web 2.5 AI Career Coach that follows the principle "crypto invisible, value visible." Its multi-agent AI analyzes each user\'s interests, grades, skills, and CV to generate a personalized roadmap of universities, scholarships, and courses in under 10 seconds. Users then progress through a 12-stage world map, completing reading, quizzes, live coding labs, and AI-reviewed mini projects to earn XP and unlock the next stage. When a course is passed, the platform mints a Soulbound Token (BEP-1155 on BSC Testnet) to the user\'s embedded wallet as permanent, tamper-proof proof of skill. The backend treasury covers all gas fees, so users simply experience it as earning a certificate. Course content is kept relevant through vector search over a curated knowledge base instead of static material.' },
     { id: 'b4', type: 'text', heading: 'Outcome', content: 'The full-stack AI and Web3 platform was successfully shipped within the hackathon timeline. All three AI agents are fully operational with guardrails ensuring valid structured responses, and the gasless SBT pipeline was tested end-to-end on BSC Testnet, from EIP-712 signing to on-chain mint to database confirmation. The back-end exposes 15+ REST endpoints covering authentication, assessment, AI roadmap, course progression, gamification, and certificate issuance, while the Phaser.js world map ties 12 unlockable stages to real course completion. Users log in with just an email via Privy and receive blockchain credentials without any crypto knowledge, and the concept was validated across two user personas: high school and university students.' },
     { id: 'b5', type: 'image', src: imgPathTrick1 },
-    { id: 'b6', type: 'image', src: imgPathTrick1 }
+    { id: 'b6', type: 'image', src: imgPathTrick2 },
+    { id: 'b7', type: 'video', src: videoPathTrick }
   ],
   4: []
 };

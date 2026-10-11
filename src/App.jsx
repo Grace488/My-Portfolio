@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { portfolioData } from './store';
 import { getProjectBlocks } from './projectBlocks';
 
@@ -50,7 +50,16 @@ function ContactSection({ data }) {
 }
 
 function Home({ data }) {
-  const [currentProj, setCurrentProj] = useState(0);
+  const [currentProj, setCurrentProj] = useState(() => {
+    const saved = sessionStorage.getItem('active_project_index');
+    return saved !== null && !isNaN(Number(saved)) ? Number(saved) : 0;
+  });
+
+  const selectProject = (idx) => {
+    setCurrentProj(idx);
+    sessionStorage.setItem('active_project_index', idx);
+  };
+
   const [openService, setOpenService] = useState(0);
   const { scrollY } = useScroll();
   const yHero = useTransform(scrollY, [0, 1000], [0, 300]);
@@ -148,7 +157,7 @@ function Home({ data }) {
               {projects.slice(0, 3).map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setCurrentProj(idx)}
+                  onClick={() => selectProject(idx)}
                   style={{
                     width: '30px', height: '30px', borderRadius: '50%',
                     border: '1px solid rgba(18,16,14,.3)',
@@ -246,37 +255,66 @@ function Home({ data }) {
 
 function ProjectsPage({ data }) {
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
-      <div className="pad">
-      <header style={{ position: 'relative', padding: '0 0 40px 0', mixBlendMode: 'normal', color: 'var(--ink)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
+      {/* Complete Header with Navigation */}
+      <header className="page-header">
         <Link className="lg" to="/">GT</Link>
+        <nav>
+          <Link to="/">Home</Link>
+          <a href="/#about">About</a>
+          <Link to="/projects" className="active">Projects</Link>
+          <a href="/#services">Services</a>
+          <a href="/#contact">Contact</a>
+        </nav>
       </header>
 
-      <Link to="/" className="back-btn">← Back to Home</Link>
+      <div className="pad" style={{ paddingTop: '32px', paddingBottom: '80px' }}>
+        {/* Top bar with back button & project count badge */}
+        <div className="page-topbar">
+          <Link to="/" className="back-btn-pill">
+            <span className="arrow">←</span> Back to Home
+          </Link>
+          <span className="page-count-badge">{data.projects.length} Selected Works</span>
+        </div>
 
-      <h1 style={{ fontFamily: 'var(--serif)', fontSize: '4rem', color: 'var(--ink)' }}>All Projects</h1>
+        <div className="page-intro">
+          <h1 className="page-title">All Projects</h1>
+          <p className="page-subtitle">A curated collection of design, full-stack development, and digital experiences.</p>
+        </div>
 
-      <div className="all-projects-grid">
-        {data.projects.map((proj) => (
-          <motion.div
-            key={proj.id}
-            className="project-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <Link to={`/project/${proj.id}`}>
-              <ProgressiveImage src={proj.img} alt={proj.title} style={{ aspectRatio: '16 / 10' }} />
-              <div className="project-card-info">
-                <span className="lb">{proj.category} — {proj.year}</span>
-                <h4>{proj.title}</h4>
-                <p>{proj.description}</p>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+        <div className="all-projects-grid">
+          {data.projects.map((proj) => (
+            <motion.div
+              key={proj.id}
+              className="project-card"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35 }}
+            >
+              <Link to={`/project/${proj.id}`} className="project-card-link">
+                <div className="project-card-media">
+                  <ProgressiveImage src={proj.img} alt={proj.title} style={{ aspectRatio: '16 / 10' }} />
+                  <div className="project-card-badge">{proj.category}</div>
+                </div>
+                <div className="project-card-info">
+                  <div className="project-card-meta">
+                    <span className="lb">{proj.year}</span>
+                    <span className="project-card-role">{proj.role || 'Design & Code'}</span>
+                  </div>
+                  <h4>{proj.title}</h4>
+                  <p>{proj.description}</p>
+                  <div className="project-card-action">
+                    <span>View Case Study</span>
+                    <span className="arrow">→</span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
-      </div>
+
       <ContactSection data={data} />
     </div>
   );
@@ -285,80 +323,158 @@ function ProjectsPage({ data }) {
 function ProjectDetail({ data }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const project = data.projects.find(p => p.id.toString() === id);
+  const projectIndex = data.projects.findIndex(p => p.id.toString() === id);
+  const project = data.projects[projectIndex];
 
   if (!project) {
-    return <div className="pad">Project not found. <Link to="/">Go Home</Link></div>;
+    return (
+      <div className="pad" style={{ textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <h2 style={{ fontFamily: 'var(--serif)', fontSize: '2.5rem', marginBottom: '16px' }}>Project Not Found</h2>
+        <p style={{ color: 'var(--mut)', marginBottom: '24px' }}>The case study you are looking for does not exist or has been moved.</p>
+        <Link to="/" className="back-btn-pill">← Back to Home</Link>
+      </div>
+    );
   }
 
+  const prevProject = projectIndex > 0 ? data.projects[projectIndex - 1] : null;
+  const nextProject = projectIndex < data.projects.length - 1 ? data.projects[projectIndex + 1] : null;
   const blocks = project.blocks && project.blocks.length > 0 ? project.blocks : getProjectBlocks(project.id);
 
+  useEffect(() => {
+    if (projectIndex >= 0) {
+      sessionStorage.setItem('active_project_index', projectIndex);
+    }
+  }, [projectIndex]);
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/#projects');
+    }
+  };
+
   return (
-    <div style={{ background: 'var(--bg)', color: 'var(--ink)', minHeight: '100vh' }}>
-      <header style={{ position: 'relative', background: 'transparent', padding: '18px clamp(20px, 5vw, 80px)', color: 'var(--ink)', textShadow: 'none' }}>
+    <div className="detail-page-wrapper">
+      {/* Complete Header with Navigation */}
+      <header className="page-header">
         <Link className="lg" to="/">GT</Link>
         <nav>
-          <a href="/#projects">Projects</a>
+          <Link to="/">Home</Link>
           <a href="/#about">About</a>
+          <Link to="/#projects">Projects</Link>
           <a href="/#services">Services</a>
           <a href="/#contact">Contact</a>
         </nav>
       </header>
 
-      <div className="pad" style={{ paddingTop: '20px', paddingBottom: '40px' }}>
+      <div className="detail-container">
+        
+        {/* Top Bar with Back Button & Breadcrumbs & Live Link */}
+        <div className="detail-top-nav">
+          <button onClick={handleBack} className="detail-back-button" aria-label="Go back to projects">
+            <span className="arrow">←</span> Back
+          </button>
+          
+          <div className="detail-breadcrumbs">
+            <Link to="/#projects">Home</Link>
+            <span className="sep">/</span>
+            <Link to="/#projects">Projects</Link>
+            <span className="sep">/</span>
+            <span className="current">{project.title}</span>
+          </div>
 
-        {/* Main Cover Image at the top, just below header like in the screenshot */}
-        <div className="detail-cover">
-          <ProgressiveImage src={project.coverImg || project.img} alt={project.title} priority={true} />
+          {project.linkUrl && (
+            <a 
+              href={project.linkUrl} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="detail-live-link"
+            >
+              <span>{project.linkLabel || 'Visit Website'}</span>
+              <span className="arrow">↗</span>
+            </a>
+          )}
         </div>
 
-        <div className="detail-meta">
-          <div>
-            <span className="lb">Role</span>
-            <p>{project.role || 'UI/UX Designer'}</p>
+        {/* Hero Title & Tagline */}
+        <div className="detail-hero-intro">
+          <div className="detail-tag-pill">
+            <span>{project.category}</span>
+            <span className="dot">•</span>
+            <span>{project.year}</span>
           </div>
-          <div>
-            <span className="lb">Services</span>
-            <p>{project.category}</p>
+          <h1 className="detail-title">{project.title}</h1>
+          <p className="detail-tagline">{project.description}</p>
+        </div>
+
+        {/* Main Featured Showcase (Cover) */}
+        <div className="detail-cover-showcase">
+          <div className="detail-cover-frame">
+            <ProgressiveImage src={project.coverImg || project.img} alt={project.title} priority={true} />
           </div>
-          <div>
-            <span className="lb">Client</span>
-            <p>{project.client || 'Internal'}</p>
+        </div>
+
+        {/* Structured Metadata Card */}
+        <div className="detail-meta-card">
+          <div className="meta-item">
+            <span className="meta-label">Role</span>
+            <p className="meta-val">{project.role || 'UI/UX & Development'}</p>
           </div>
-          <div>
-            <span className="lb">Year</span>
-            <p>{project.year}</p>
+          <div className="meta-item">
+            <span className="meta-label">Client</span>
+            <p className="meta-val">{project.client || 'Featured Work'}</p>
           </div>
-          {project.linkLabel && project.linkUrl && (
-            <div>
-              <span className="lb">Link</span>
-              <p><a href={project.linkUrl} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', textUnderlineOffset: '4px' }}>{project.linkLabel}</a></p>
+          <div className="meta-item">
+            <span className="meta-label">Category</span>
+            <p className="meta-val">{project.category}</p>
+          </div>
+          <div className="meta-item">
+            <span className="meta-label">Year</span>
+            <p className="meta-val">{project.year}</p>
+          </div>
+          {project.linkUrl && (
+            <div className="meta-item meta-item-link">
+              <span className="meta-label">External</span>
+              <a href={project.linkUrl} target="_blank" rel="noreferrer" className="meta-val-link">
+                {project.linkLabel || 'Live Demo'} ↗
+              </a>
             </div>
           )}
         </div>
 
-        {/* Dynamic Blocks */}
-        <div className="detail-blocks-container">
-          {blocks.map(block => {
+        {/* Dynamic Blocks with Editorial Case Study Layout */}
+        <div className="detail-content-flow">
+          {blocks.map((block, idx) => {
             if (block.type === 'text') {
+              const sectionNumber = String(idx + 1).padStart(2, '0');
               return (
-                <div key={block.id} className="detail-section">
-                  <h3>{block.heading}</h3>
-                  <p style={{ whiteSpace: 'pre-line' }}>{block.content}</p>
+                <div key={block.id} className="detail-editorial-section">
+                  <div className="section-header-col">
+                    <span className="section-badge">{sectionNumber}</span>
+                    <h3 className="section-heading">{block.heading}</h3>
+                  </div>
+                  <div className="section-body-col">
+                    <p className="section-text">{block.content}</p>
+                  </div>
                 </div>
               );
             }
             if (block.type === 'image') {
               return (
-                <div key={block.id} className="detail-grid-item">
-                  <ProgressiveImage src={block.src} alt="Detail view" />
+                <div key={block.id} className="detail-media-card">
+                  <ProgressiveImage src={block.src} alt="Project visual" />
                 </div>
               );
             }
             if (block.type === 'video') {
               return (
-                <div key={block.id} className="detail-grid-item">
-                  <video src={block.src} autoPlay loop muted playsInline />
+                <div key={block.id} className="detail-media-card video-card">
+                  <div className="video-header-chip">
+                    <span className="pulse-dot"></span>
+                    <span>Interactive Product Walkthrough</span>
+                  </div>
+                  <video src={block.src} autoPlay loop muted playsInline controls />
                 </div>
               );
             }
@@ -366,11 +482,31 @@ function ProjectDetail({ data }) {
           })}
         </div>
 
-        <div style={{ textAlign: 'center', marginTop: '60px' }}>
-          <button onClick={() => navigate(-1)} style={{ background: 'var(--ink)', color: 'var(--bg)', padding: '12px 30px', fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-            Back to Home ➔
-          </button>
+        {/* Project Pagination (Prev & Next project) */}
+        <div className="detail-pagination">
+          {prevProject ? (
+            <Link to={`/project/${prevProject.id}`} className="pagination-card prev">
+              <span className="pag-label">← Previous Project</span>
+              <span className="pag-title">{prevProject.title}</span>
+            </Link>
+          ) : (
+            <div className="pagination-card disabled" style={{ visibility: 'hidden' }} />
+          )}
+
+          <Link to="/projects" className="pagination-all-btn">
+            All Projects
+          </Link>
+
+          {nextProject ? (
+            <Link to={`/project/${nextProject.id}`} className="pagination-card next">
+              <span className="pag-label">Next Project →</span>
+              <span className="pag-title">{nextProject.title}</span>
+            </Link>
+          ) : (
+            <div className="pagination-card disabled" style={{ visibility: 'hidden' }} />
+          )}
         </div>
+
       </div>
 
       <ContactSection data={data} />
@@ -378,13 +514,71 @@ function ProjectDetail({ data }) {
   );
 }
 
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  const prevPathRef = useRef(pathname);
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  useEffect(() => {
+    const prevPath = prevPathRef.current;
+    prevPathRef.current = pathname;
+
+    // Jika kembali dari detail project (/project/..) ke Home ('/'), tetap di section #projects
+    const isReturningFromProjectToHome = prevPath && prevPath.startsWith('/project/') && pathname === '/';
+
+    if (isReturningFromProjectToHome || hash === '#projects') {
+      const scrollToProjects = () => {
+        const el = document.getElementById('projects');
+        if (el) {
+          document.documentElement.style.scrollBehavior = 'auto';
+          el.scrollIntoView();
+          requestAnimationFrame(() => {
+            document.documentElement.style.scrollBehavior = '';
+          });
+          return true;
+        }
+        return false;
+      };
+
+      if (!scrollToProjects()) {
+        const timer = setTimeout(scrollToProjects, 40);
+        return () => clearTimeout(timer);
+      }
+      return;
+    }
+
+    if (!hash) {
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = '';
+      });
+    } else {
+      const el = document.getElementById(hash.replace('#', ''));
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home data={portfolioData} />} />
-      <Route path="/projects" element={<ProjectsPage data={portfolioData} />} />
-      <Route path="/project/:id" element={<ProjectDetail data={portfolioData} />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home data={portfolioData} />} />
+        <Route path="/projects" element={<ProjectsPage data={portfolioData} />} />
+        <Route path="/project/:id" element={<ProjectDetail data={portfolioData} />} />
+      </Routes>
+    </>
   );
 }
 

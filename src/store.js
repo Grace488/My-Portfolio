@@ -4,11 +4,12 @@ import imgUnilaCare from './assets/upabk mock up.webp';
 import imgtravel from './assets/landscape banner.webp';
 import imgcovertravel from './assets/Grace Travel Car Rental Promo.webp';
 import imgPathTrick from './assets/PathTrick.webp';
-import imgPathTrick1 from './assets/imgPathTrick 1.webp';
 import imglogoupabk from './assets/logo upa bk.webp';
 import imglogorental from './assets/logo rental.webp';
 import imgcoverPathTrick from './assets/pathtrick cover.png';
 import logoPathTrick from './assets/logo pathtrick.webp';
+import coverupa from './assets/cover upa.png';
+
 
 export const projects = [
   {
@@ -19,7 +20,7 @@ export const projects = [
     role: 'Fullstack Development',
     client: 'UPA BK Universitas Lampung',
     description: 'A full-stack web platform for counseling registration and psychological assessment at University of Lampung.',
-    img: imgUnilaCare, // Cover di Landing Page & All Projects
+    img: coverupa, // Cover di Landing Page & All Projects
     coverImg: imgUnilaCare, // Cover di halaman Detail Project
     logo: imglogoupabk, // Logo yang tampil saat cover di-hover
     linkLabel: 'View Website',
@@ -42,16 +43,16 @@ export const projects = [
   {
     id: 3,
     title: 'PathTrick',
-    category: 'Web Development',
+    category: 'Web3 Development',
     year: '2026',
     role: 'Full-Stack Development',
     client: 'Hackathon Project',
-    description: 'A Web 2.5 AI career coach that creates personalized education and career roadmaps and issues blockchain-verified skill credentials, without users needing to understand crypto.',
+    description: 'A Web3 AI career coach that creates personalized education and career roadmaps and issues blockchain-verified skill credentials, without users needing to understand crypto.',
     img: imgcoverPathTrick, // Cover di Landing Page & All Projects
-    coverImg: imgPathTrick1, // Cover di halaman Detail Project
+    coverImg: imgPathTrick, // Cover di halaman Detail Project
     logo: logoPathTrick, // Logo yang tampil saat cover di-hover
-    linkLabel: 'View Project',
-    linkUrl: 'https://GANTI-DENGAN-LINK-KAMU'
+    linkLabel: 'View Website',
+    linkUrl: 'https://pathtrick.vercel.app/'
   },
   {
     id: 4,
