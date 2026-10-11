@@ -66,7 +66,7 @@ export const projects = [
     category: 'Web3 Development',
     year: '2026',
     role: 'Full-Stack Development',
-    client: 'Hackathon Project',
+    client: 'Hackathon Project | Team Ketupat',
     description: 'A Web3 AI career coach that creates personalized education and career roadmaps and issues blockchain-verified skill credentials, without users needing to understand crypto.',
     img: imgcoverPathTrick, // Cover di Landing Page & All Projects
     coverImg: imgPathTrick, // Cover di halaman Detail Project
@@ -110,10 +110,16 @@ export const projects = [
 
 export const portfolioData = {
   name: "Grace Yoelanda Turnip",
-  heroTitle: "Grace Turnip\nGraphic Designer & Digital Creative",
+  heroTitle: "Grace Turnip\nWeb Developer & Graphic Designer",
   aboutTitle: "Creative by Nature",
-  aboutText1: "I'm Grace. A Graphic Designer & Digital Creative who finds beauty in simplicity and meaning in every visual choice. Crafting designs that feel right, look sharp, and tell a story.",
-  aboutText2: "Design is more than aesthetics. It's how ideas find their shape. With a sharp eye for detail and a genuine love for visual communication, I craft experiences that are bold, clean, and built to resonate. I work across brand identity, UI/UX, and digital content, driven by curiosity and growing one project at a time.",
+  aboutParagraphs: [
+    "I'm Grace, a Web Developer and Graphic Designer based in Indonesia, open to remote work.",
+    "I build websites and web apps that work well, and design the visuals that make them worth using. From brand identity and UI design to full-stack development, I like handling the whole journey, so the idea, the look, and the code all stay consistent.",
+    "I design interfaces in Figma, then build them with React and Node.js, so nothing gets lost between what a product should look like and what actually ships. Along the way, I've also designed brand and marketing assets for local businesses.",
+    "I'm currently finishing my Informatics Engineering degree at Universitas Lampung, where my thesis is a web-based counseling management system. Outside of class, I join hackathons and build Web3 projects with my team, always looking for the next thing to learn and ship."
+  ],
+  aboutText1: "I'm Grace, a Web Developer and Graphic Designer based in Indonesia, open to remote work.",
+  aboutText2: "I build websites and web apps that work well, and design the visuals that make them worth using. From brand identity and UI design to full-stack development, I like handling the whole journey, so the idea, the look, and the code all stay consistent.",
   email: "graceturnip48@gmail.com",
   linkedin: "https://www.linkedin.com/in/graceyoelandaturnip",
   instagram: "https://www.instagram.com/grace_yolanda12?igsh=MW1iNDRkNXN4OXQ1dg==",

@@ -403,9 +403,13 @@ function Home({ data }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            style={{ whiteSpace: 'pre-line' }}
+            className="hero-title"
           >
-            {data.heroTitle}
+            {data.heroTitle.split('\n').map((line, idx) => (
+              <span key={idx} className={`hero-title-line line-${idx}`}>
+                {line}
+              </span>
+            ))}
           </motion.h1>
         </div>
       </section>
@@ -420,8 +424,16 @@ function Home({ data }) {
             <ProgressiveImage src={data.aboutImg} alt={data.name} />
           </div>
           <div className="about-text">
-            <p>{data.aboutText1}</p>
-            <p>{data.aboutText2}</p>
+            {data.aboutParagraphs && data.aboutParagraphs.length > 0 ? (
+              data.aboutParagraphs.map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))
+            ) : (
+              <>
+                <p>{data.aboutText1}</p>
+                <p>{data.aboutText2}</p>
+              </>
+            )}
           </div>
         </div>
       </section>
