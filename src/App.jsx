@@ -369,13 +369,13 @@ function ProjectDetail({ data }) {
       </header>
 
       <div className="detail-container">
-        
+
         {/* Top Bar with Back Button & Breadcrumbs & Live Link */}
         <div className="detail-top-nav">
           <button onClick={handleBack} className="detail-back-button" aria-label="Go back to projects">
             <span className="arrow">←</span> Back
           </button>
-          
+
           <div className="detail-breadcrumbs">
             <Link to="/#projects">Home</Link>
             <span className="sep">/</span>
@@ -385,10 +385,10 @@ function ProjectDetail({ data }) {
           </div>
 
           {project.linkUrl && (
-            <a 
-              href={project.linkUrl} 
-              target="_blank" 
-              rel="noreferrer" 
+            <a
+              href={project.linkUrl}
+              target="_blank"
+              rel="noreferrer"
               className="detail-live-link"
             >
               <span>{project.linkLabel || 'Visit Website'}</span>

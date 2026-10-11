@@ -9,6 +9,9 @@ import imglogorental from './assets/logo rental.webp';
 import imgcoverPathTrick from './assets/pathtrick cover.png';
 import logoPathTrick from './assets/logo pathtrick.webp';
 import coverupa from './assets/cover upa.png';
+import landinglanyard from './assets/landing page lanyard.png';
+import mockuplanyard from './assets/mockup lanyard.png';
+import logokkn from './assets/logo kkn unila.png';
 
 
 export const projects = [
@@ -56,15 +59,15 @@ export const projects = [
   },
   {
     id: 4,
-    title: 'Arc Form',
-    category: 'Architecture Firm',
+    title: 'KKN Lanyard',
+    category: 'Design Lanyard',
     year: '2024',
-    role: 'Digital Designer',
-    client: 'Arc Form',
-    description: 'A portfolio for an architecture practice built around sweeping curves, scroll-driven plans and quiet confidence.',
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
-    coverImg: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
-    logo: null
+    role: 'Graphic Design',
+    client: 'KKN group at Gunung Tapak Tengah Village',
+    description: 'Designing a cohesive ID lanyard for the 2024 KKN in Gunung Tapak Tengah Village',
+    img: landinglanyard,
+    coverImg: mockuplanyard,
+    logo: logokkn
   }
 ];
 
