@@ -2,6 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 import { portfolioData } from './store';
+import { getProjectBlocks } from './projectBlocks';
+
+function ProgressiveImage({ src, alt, className = '', imgClassName = '', style = {}, imgStyle = {}, priority = false, ...props }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className={`img-skeleton-container ${className}`} style={style}>
+      {!loaded && <div className="skeleton-placeholder" />}
+      <img
+        src={src}
+        alt={alt}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={priority ? 'high' : 'auto'}
+        onLoad={() => setLoaded(true)}
+        className={`progressive-img ${loaded ? 'is-loaded' : 'is-loading'} ${imgClassName}`}
+        style={imgStyle}
+        {...props}
+      />
+    </div>
+  );
+}
 
 function ContactSection({ data }) {
   return (
@@ -68,7 +90,7 @@ function Home({ data }) {
           style={{ y: yHero }}
           className="hero-bg"
         >
-          <img src={data.heroImg} alt="Hero Background" />
+          <ProgressiveImage src={data.heroImg} alt="Hero Background" priority={true} />
           <div className="hero-overlay"></div>
         </motion.div>
 
@@ -91,7 +113,7 @@ function Home({ data }) {
         </div>
         <div className="about-grid">
           <div className="about-img-wrapper">
-            <img src={data.aboutImg} alt={data.name} />
+            <ProgressiveImage src={data.aboutImg} alt={data.name} />
           </div>
           <div className="about-text">
             <p>{data.aboutText1}</p>
@@ -152,7 +174,7 @@ function Home({ data }) {
           </div>
 
           <div className="stg">
-            <Link to={`/project/${projects[currentProj].id}`}>
+            <Link to={`/project/${projects[currentProj].id}`} className="stg-link">
               <motion.img
                 key={projects[currentProj].img}
                 initial={{ scale: 1.2, opacity: 0 }}
@@ -160,8 +182,22 @@ function Home({ data }) {
                 transition={{ duration: 0.6 }}
                 src={projects[currentProj].img}
                 alt={projects[currentProj].title}
-                style={{ cursor: 'pointer' }}
+                className="stg-img"
+                decoding="async"
               />
+              <div className="stg-overlay">
+                {projects[currentProj].logo ? (
+                  <img
+                    src={projects[currentProj].logo}
+                    alt={`${projects[currentProj].title} Logo`}
+                    className="stg-logo"
+                  />
+                ) : (
+                  <div className="stg-logo-badge">
+                    <span>{projects[currentProj].title}</span>
+                  </div>
+                )}
+              </div>
             </Link>
           </div>
         </div>
@@ -230,7 +266,7 @@ function ProjectsPage({ data }) {
             viewport={{ once: true }}
           >
             <Link to={`/project/${proj.id}`}>
-              <img src={proj.img} alt={proj.title} />
+              <ProgressiveImage src={proj.img} alt={proj.title} style={{ aspectRatio: '16 / 10' }} />
               <div className="project-card-info">
                 <span className="lb">{proj.category} — {proj.year}</span>
                 <h4>{proj.title}</h4>
@@ -255,6 +291,8 @@ function ProjectDetail({ data }) {
     return <div className="pad">Project not found. <Link to="/">Go Home</Link></div>;
   }
 
+  const blocks = project.blocks && project.blocks.length > 0 ? project.blocks : getProjectBlocks(project.id);
+
   return (
     <div style={{ background: 'var(--bg)', color: 'var(--ink)', minHeight: '100vh' }}>
       <header style={{ position: 'relative', background: 'transparent', padding: '18px clamp(20px, 5vw, 80px)', color: 'var(--ink)', textShadow: 'none' }}>
@@ -271,7 +309,7 @@ function ProjectDetail({ data }) {
 
         {/* Main Cover Image at the top, just below header like in the screenshot */}
         <div className="detail-cover">
-          <img src={project.img} alt={project.title} />
+          <ProgressiveImage src={project.coverImg || project.img} alt={project.title} priority={true} />
         </div>
 
         <div className="detail-meta">
@@ -301,7 +339,7 @@ function ProjectDetail({ data }) {
 
         {/* Dynamic Blocks */}
         <div className="detail-blocks-container">
-          {(project.blocks || []).map(block => {
+          {blocks.map(block => {
             if (block.type === 'text') {
               return (
                 <div key={block.id} className="detail-section">
@@ -313,7 +351,7 @@ function ProjectDetail({ data }) {
             if (block.type === 'image') {
               return (
                 <div key={block.id} className="detail-grid-item">
-                  <img src={block.src} alt="Detail view" />
+                  <ProgressiveImage src={block.src} alt="Detail view" />
                 </div>
               );
             }
