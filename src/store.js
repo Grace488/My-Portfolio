@@ -1,17 +1,17 @@
 import imgAbout from './assets/Foto Grace 2.webp';
 import imgHero from './assets/Foto Grace.webp';
-import imgUnilaCare from './assets/upabk mock up.webp';
-import imgtravel from './assets/landscape banner.webp';
-import imgcovertravel from './assets/Grace Travel Car Rental Promo.webp';
-import imgPathTrick from './assets/PathTrick.webp';
-import imglogoupabk from './assets/logo upa bk.webp';
-import imglogorental from './assets/logo rental.webp';
-import imgcoverPathTrick from './assets/pathtrick cover.png';
-import logoPathTrick from './assets/logo pathtrick.webp';
-import coverupa from './assets/cover upa.png';
-import landinglanyard from './assets/landing page lanyard.png';
-import mockuplanyard from './assets/mockup lanyard.png';
-import logokkn from './assets/logo kkn unila.png';
+import imgUnilaCare from './assets/unila-care/upabk mock up.webp';
+import imgtravel from './assets/rental/landscape banner.webp';
+import imgcovertravel from './assets/rental/Grace Travel Car Rental Promo.webp';
+import imgPathTrick from './assets/pathtrick/PathTrick.webp';
+import imglogoupabk from './assets/unila-care/logo upa bk.webp';
+import imglogorental from './assets/rental/logo rental.webp';
+import imgcoverPathTrick from './assets/pathtrick/pathtrick cover.png';
+import logoPathTrick from './assets/pathtrick/logo pathtrick.webp';
+import coverupa from './assets/unila-care/cover upa.png';
+import landinglanyard from './assets/kkn-lanyard/landing page lanyard.png';
+import mockuplanyard from './assets/kkn-lanyard/mockup lanyard.png';
+import logokkn from './assets/kkn-lanyard/logo kkn unila.png';
 
 
 export const projects = [
@@ -27,7 +27,23 @@ export const projects = [
     coverImg: imgUnilaCare, // Cover di halaman Detail Project
     logo: imglogoupabk, // Logo yang tampil saat cover di-hover
     linkLabel: 'View Website',
-    linkUrl: 'https://upa-bk.unila.ac.id'
+    linkUrl: 'https://upa-bk.unila.ac.id',
+    techStack: [
+      'React.js',
+      'Laravel',
+      'PHP',
+      'Blade',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'JavaScript',
+      'Figma',
+      'Brevo',
+      'Nginx',
+      'GitHub',
+      'VS Code',
+      'Lighthouse',
+      'UptimeRobot'
+    ]
   },
   {
     id: 2,
@@ -41,7 +57,8 @@ export const projects = [
     coverImg: imgtravel, // Cover di halaman Detail Project
     logo: imglogorental, // Logo yang tampil saat cover di-hover
     linkLabel: 'View Instagram',
-    linkUrl: 'https://www.instagram.com/gracerentaltravel?stkn=MTdqZG9qNTFxbm5jMA=='
+    linkUrl: 'https://www.instagram.com/gracerentaltravel?stkn=MTdqZG9qNTFxbm5jMA==',
+    techStack: ['Affinity Designer', 'Canva Pro', 'Typography System', 'Print Layout']
   },
   {
     id: 3,
@@ -55,7 +72,26 @@ export const projects = [
     coverImg: imgPathTrick, // Cover di halaman Detail Project
     logo: logoPathTrick, // Logo yang tampil saat cover di-hover
     linkLabel: 'View Website',
-    linkUrl: 'https://pathtrick.vercel.app/'
+    techStack: [
+      'Next.js 16',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS 4',
+      'Phaser 3 (RPG Engine)',
+      'Node.js',
+      'Fastify 5',
+      'Prisma',
+      'PostgreSQL',
+      'Zod',
+      'Groq API (LLM)',
+      'Cohere (Embeddings)',
+      'Privy (Auth)',
+      'Wagmi',
+      'Viem',
+      'Vercel',
+      'Railway',
+      'GitHub Actions (CI)'
+    ]
   },
   {
     id: 4,
@@ -67,7 +103,8 @@ export const projects = [
     description: 'Designing a cohesive ID lanyard for the 2024 KKN in Gunung Tapak Tengah Village',
     img: landinglanyard,
     coverImg: mockuplanyard,
-    logo: logokkn
+    logo: logokkn,
+    techStack: ['CorelDRAW', 'Inkscape', 'Vector Illustration', 'Mockup Design']
   }
 ];
 

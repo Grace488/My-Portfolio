@@ -1,16 +1,16 @@
-import imgManfaat from './assets/manfaat menjadi member.webp';
-import imgMobile from './assets/mobile unila care.webp';
-import imgMulai from './assets/mulai asesemen unila care.webp';
-import imgArtikel from './assets/artikel unila care.webp';
-import imgTravelInsta from './assets/Grace Travel & Rent Car (4).webp';
-import imgtravel from './assets/landscape banner.webp';
-import imgPathTrick1 from './assets/imgPathTrick 1.webp';
-import imgPathTrick2 from './assets/pathrick2.png';
-import videoPathTrick from './assets/PathTrick - Discover Your Path, Build Your Future.mp4';
-import imglandyard1 from './assets/lanyard3 (2).png';
-import imglandyard2 from './assets/foto pemakaian lanyard.png';
-import imglandyard3 from './assets/mockup lanyard 2.png';
-import landinglanyard from './assets/landing page lanyard.png';
+import imgManfaat from './assets/unila-care/manfaat menjadi member.webp';
+import imgMobile from './assets/unila-care/mobile unila care.webp';
+import imgMulai from './assets/unila-care/mulai asesemen unila care.webp';
+import imgArtikel from './assets/unila-care/artikel unila care.webp';
+import imgTravelInsta from './assets/rental/Grace Travel & Rent Car (4).webp';
+import imgtravel from './assets/rental/landscape banner.webp';
+import imgPathTrick1 from './assets/pathtrick/imgPathTrick 1.webp';
+import imgPathTrick2 from './assets/pathtrick/pathrick2.png';
+import videoPathTrick from './assets/pathtrick/PathTrick - Discover Your Path, Build Your Future.mp4';
+import imglandyard1 from './assets/kkn-lanyard/lanyard3 (2).png';
+import imglandyard2 from './assets/kkn-lanyard/foto pemakaian lanyard.png';
+import imglandyard3 from './assets/kkn-lanyard/mockup lanyard 2.png';
+import landinglanyard from './assets/kkn-lanyard/landing page lanyard.png';
 
 
 export const projectBlocksMap = {
