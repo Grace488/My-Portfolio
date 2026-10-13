@@ -438,10 +438,23 @@ function Home({ data }) {
         </div>
       </section>
 
-      <section id="projects">
+      <section id="projects" className="projects-section">
+        {/* Section Header */}
+        <div className="projects-head-wrap">
+          <div className="projects-head-tag">// PROJECTS</div>
+          <div className="projects-head-title-row">
+            <h2 className="projects-headline">
+              {data.projectsTitle || 'Projects'}
+            </h2>
+            <p className="projects-subheadline">
+              A curated showcase of full-stack web applications, UI/UX designs, and brand identities.
+            </p>
+          </div>
+        </div>
+
         <div className="stk">
           <div className="inf">
-            <div className="c">0{currentProj + 1} / 0{projects.length}</div>
+            <div className="c">PROJECT 0{currentProj + 1} / 0{projects.length}</div>
             <motion.h3
               key={projects[currentProj].title}
               initial={{ opacity: 0, y: 20 }}
@@ -667,6 +680,12 @@ function ProjectDetail({ data }) {
   const projectIndex = data.projects.findIndex(p => p.id.toString() === id);
   const project = data.projects[projectIndex];
 
+  useEffect(() => {
+    if (projectIndex >= 0) {
+      sessionStorage.setItem('active_project_index', projectIndex);
+    }
+  }, [projectIndex]);
+
   if (!project) {
     return (
       <div className="pad" style={{ textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -680,12 +699,6 @@ function ProjectDetail({ data }) {
   const prevProject = projectIndex > 0 ? data.projects[projectIndex - 1] : null;
   const nextProject = projectIndex < data.projects.length - 1 ? data.projects[projectIndex + 1] : null;
   const blocks = project.blocks && project.blocks.length > 0 ? project.blocks : getProjectBlocks(project.id);
-
-  useEffect(() => {
-    if (projectIndex >= 0) {
-      sessionStorage.setItem('active_project_index', projectIndex);
-    }
-  }, [projectIndex]);
 
   const handleBack = () => {
     navigate('/#projects');

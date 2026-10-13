@@ -72,6 +72,7 @@ export const projects = [
     coverImg: imgPathTrick, // Cover di halaman Detail Project
     logo: logoPathTrick, // Logo yang tampil saat cover di-hover
     linkLabel: 'View Website',
+    linkUrl: 'https://pathtrick.vercel.app/',
     techStack: [
       'Next.js 16',
       'React 19',
@@ -99,11 +100,13 @@ export const projects = [
     category: 'Design Lanyard',
     year: '2024',
     role: 'Graphic Design',
-    client: 'KKN group at Gunung Tapak Tengah Village',
-    description: 'Designing a cohesive ID lanyard for the 2024 KKN in Gunung Tapak Tengah Village',
+    client: 'KKN group at Gunung Tapa Tengah Village',
+    description: 'Designing a cohesive ID lanyard for the 2024 KKN in Gunung Tapa Tengah Village',
     img: landinglanyard,
     coverImg: mockuplanyard,
     logo: logokkn,
+    linkLabel: 'View Instagram',
+    linkUrl: 'https://www.instagram.com/kkn_gunungtapatengah24?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==',
     techStack: ['CorelDRAW', 'Inkscape', 'Vector Illustration', 'Mockup Design']
   }
 ];
@@ -112,6 +115,7 @@ export const portfolioData = {
   name: "Grace Yoelanda Turnip",
   heroTitle: "Grace Turnip\nWeb Developer & Graphic Designer",
   aboutTitle: "Creative by Nature",
+  projectsTitle: "Projects",
   aboutParagraphs: [
     "I'm Grace, a Web Developer and Graphic Designer based in Indonesia, open to remote work.",
     "I build websites and web apps that work well, and design the visuals that make them worth using. From brand identity and UI design to full-stack development, I like handling the whole journey, so the idea, the look, and the code all stay consistent.",

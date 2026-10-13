@@ -214,15 +214,74 @@ header nav {
 
 
 /* --- PROJECTS SECTION --- */
+#projects.projects-section,
 #projects {
   background: var(--dk);
   color: var(--cr);
   position: relative;
   min-height: 100vh;
+  padding-top: clamp(80px, 10vw, 120px);
+  padding-bottom: clamp(60px, 8vw, 100px);
+  border-top: 1px solid var(--ln);
+}
+
+.projects-head-wrap {
+  padding: 0 clamp(20px, 5vw, 80px);
+  margin-bottom: 20px;
+}
+
+.projects-head-tag {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.projects-head-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  border-bottom: 1px solid var(--ln);
+  padding-bottom: 32px;
+}
+
+.projects-headline {
+  font-family: var(--sans);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ink);
+  max-width: 680px;
+}
+
+.projects-subheadline {
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--mut);
+  max-width: 420px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .projects-head-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .projects-subheadline {
+    max-width: 100%;
+  }
 }
 
 .stk {
-  padding: max(11vh, 86px) clamp(20px, 5vw, 80px) 5vh;
+  padding: 24px clamp(20px, 5vw, 80px) 0;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 5vw;
