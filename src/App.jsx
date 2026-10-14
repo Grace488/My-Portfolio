@@ -1,8 +1,47 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Routes, Route, Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { portfolioData } from './store';
 import { getProjectBlocks } from './projectBlocks';
+
+function ImageLightbox({ src, alt, onClose }) {
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="lightbox-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        onClick={onClose}
+      >
+        <motion.div
+          className="lightbox-content"
+          initial={{ scale: 0.85, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.85, opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img src={src} alt={alt || 'Project visual'} className="lightbox-img" />
+          <button className="lightbox-close" onClick={onClose} aria-label="Close image">
+            ✕
+          </button>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 function ProgressiveImage({ src, alt, className = '', imgClassName = '', style = {}, imgStyle = {}, priority = false, ...props }) {
   const [loaded, setLoaded] = useState(false);
@@ -675,6 +714,9 @@ function ProjectsPage({ data }) {
 }
 
 function ProjectDetail({ data }) {
+  const [lightboxSrc, setLightboxSrc] = useState(null);
+  const openLightbox = useCallback((src) => setLightboxSrc(src), []);
+  const closeLightbox = useCallback(() => setLightboxSrc(null), []);
   const { id } = useParams();
   const navigate = useNavigate();
   const projectIndex = data.projects.findIndex(p => p.id.toString() === id);
@@ -822,8 +864,14 @@ function ProjectDetail({ data }) {
             }
             if (block.type === 'image') {
               return (
-                <div key={block.id} className="detail-media-card">
+                <div
+                  key={block.id}
+                  className="detail-media-card zoomable"
+                  onClick={() => openLightbox(block.src)}
+                  title="Click to zoom"
+                >
                   <ProgressiveImage src={block.src} alt="Project visual" />
+                  <div className="zoom-hint">🔍 Click to zoom</div>
                 </div>
               );
             }
@@ -870,6 +918,10 @@ function ProjectDetail({ data }) {
       </div>
 
       <ContactSection data={data} />
+
+      {lightboxSrc && (
+        <ImageLightbox src={lightboxSrc} alt="Project visual" onClose={closeLightbox} />
+      )}
     </div>
   );
 }
