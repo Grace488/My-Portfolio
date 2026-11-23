@@ -12,6 +12,8 @@ import coverupa from './assets/unila-care/cover upa.png';
 import landinglanyard from './assets/kkn-lanyard/landing page lanyard.png';
 import mockuplanyard from './assets/kkn-lanyard/mockup lanyard.png';
 import logokkn from './assets/kkn-lanyard/logo kkn unila.png';
+import imgMicroMinds from './assets/microminds/beranda.png';
+import logoMicroMinds from './assets/microminds/logo-cropped.png';
 
 
 export const projects = [
@@ -92,6 +94,36 @@ export const projects = [
       'Vercel',
       'Railway',
       'GitHub Actions (CI)'
+    ]
+  },
+  {
+    id: 5,
+    title: 'MicroMinds',
+    category: 'Web3 Development',
+    year: '2026',
+    role: 'Backend Engineer & AI Engineer',
+    client: 'Metropolis Hackathon (Monad) | Team Ketupat',
+    description: 'A micro-API marketplace where AI agents discover, call, and pay for APIs per use, with funds held in an escrow smart contract on Monad and released only when the response is valid.',
+    img: imgMicroMinds,
+    coverImg: imgMicroMinds,
+    logo: logoMicroMinds,
+    logoBackground: true,
+    linkLabel: 'View Website',
+    linkUrl: 'https://www.microminds.tech/',
+    techStack: [
+      'NestJS',
+      'TypeScript',
+      'PostgreSQL (Supabase)',
+      'viem',
+      'MCP SDK (TypeScript)',
+      'Envio HyperIndex',
+      'Zod / Ajv',
+      'Alchemy RPC',
+      'Monad Testnet',
+      'Privy (Auth)',
+      'Solidity + Foundry',
+      'Next.js',
+      'Railway / Render'
     ]
   },
   {

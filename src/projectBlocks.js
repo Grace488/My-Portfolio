@@ -11,7 +11,9 @@ import imglandyard1 from './assets/kkn-lanyard/lanyard3 (2).png';
 import imglandyard2 from './assets/kkn-lanyard/foto pemakaian lanyard.png';
 import imglandyard3 from './assets/kkn-lanyard/mockup lanyard 2.png';
 import landinglanyard from './assets/kkn-lanyard/landing page lanyard.png';
-
+import imgMicroMinds1 from './assets/microminds/idea.png';
+import imgMicroMinds2 from './assets/microminds/dashboard.png';
+import videoMicrominds from './assets/microminds/video.mp4';
 
 export const projectBlocksMap = {
   1: [
@@ -40,6 +42,15 @@ export const projectBlocksMap = {
     { id: 'b5', type: 'image', src: imgPathTrick1 },
     { id: 'b6', type: 'image', src: imgPathTrick2 },
     { id: 'b7', type: 'video', src: videoPathTrick }
+  ],
+  5: [
+    { id: 'b1', type: 'text', heading: 'The Problem', content: 'Builders and AI agents often need only 3-10 API calls for a demo or a small task, yet most API providers force monthly subscriptions or credit card payments. This subscription fatigue makes tiny, pay-as-you-go usage impractical, and agents have no wallet or identity to pay on their own. There is also no guarantee of getting your money back when an API returns an error.' },
+    { id: 'b2', type: 'text', heading: 'What We Did', content: 'MicroMinds was built by a team of four. I was the backend engineer: I built the NestJS gateway (POST /call) that checks the consumer’s on-chain balance, orchestrates the escrow flow through an operator wallet using viem, forwards the request to the provider with a strict timeout, and validates the response (HTTP 2xx, JSON schema, latency). I also built the MCP Server exposing search_api and call_api tools, the Envio indexer that streams on-chain events into a GraphQL endpoint for the dashboard, the PostgreSQL schema, three working dummy APIs plus one intentionally flaky endpoint for refund demos, and the deployment.' },
+    { id: 'b3', type: 'text', heading: 'The Solution', content: 'MicroMinds works on the principle of pay-per-call with built-in refunds. Users log in with Privy and deposit once into an Escrow contract on Monad. For every call, the operator reserves funds, the gateway calls the provider, and the response is validated: if valid, funds are released to the provider; if it fails, funds are automatically refunded to the consumer. Agents in Cursor or Claude connect through MCP in under two minutes, with no wallet pop-ups. Every Deposited, Reserved, Released, Refunded, and Withdrawn event is indexed by Envio and shown on the dashboard in near real time.' },
+    { id: 'b4', type: 'text', heading: 'Outcome', content: 'Add confirmed results before publishing, such as the hackathon delivery timeline, verified agent integrations, endpoint count, and indexer performance.' },
+    { id: 'b5', type: 'image', src: imgMicroMinds1 },
+    { id: 'b6', type: 'image', src: imgMicroMinds2 },
+    { id: 'b7', type: 'video', src: videoMicrominds }
   ],
   4: [
     { id: 'b1', type: 'text', heading: 'The Problem', content: 'During their community service program in Gunung Tapa Tengah Village, the KKN team needed a distinctive visual identity that was functional, memorable, and easily recognizable by local villagers. Standard ID cards lacked character, so the challenge was creating a custom lanyard and card system that fostered team solidarity while presenting an approachable, professional image to the community.' },

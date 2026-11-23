@@ -555,11 +555,21 @@ function Home({ data }) {
               />
               <div className="stg-overlay">
                 {projects[currentProj].logo ? (
-                  <img
-                    src={projects[currentProj].logo}
-                    alt={`${projects[currentProj].title} Logo`}
-                    className="stg-logo"
-                  />
+                  projects[currentProj].logoBackground ? (
+                    <div className="stg-logo-card">
+                      <img
+                        src={projects[currentProj].logo}
+                        alt={`${projects[currentProj].title} Logo`}
+                        className="stg-logo"
+                      />
+                    </div>
+                  ) : (
+                    <img
+                      src={projects[currentProj].logo}
+                      alt={`${projects[currentProj].title} Logo`}
+                      className="stg-logo"
+                    />
+                  )
                 ) : (
                   <div className="stg-logo-badge">
                     <span>{projects[currentProj].title}</span>
